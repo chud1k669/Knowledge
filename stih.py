@@ -1,0 +1,8 @@
+str1 = list(map(str, input().split()))
+str2 = list(map(str, input().split()))
+str3 = list(map(str, input().split()))
+lst = list()
+lst.append(str1)
+lst.append(str2)
+lst.append(str3)
+print(lst)
