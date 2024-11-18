@@ -1,9 +1,10 @@
 c = list(map(str, input().split()))
-print(c)
 i = 0
-while c:
-    i+=1
-    if c[i] >= 5:
-        print("ДА")
+while i < len(c):
+    if len(c[i]) > 5:
+        i+=1
     else:
         print("НЕТ")
+        break
+    if i==len(c):
+        print('ДА')
