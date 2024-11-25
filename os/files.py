@@ -2,10 +2,10 @@ from datetime import datetime
 import zipfile
 from pathlib import Path
 import csv
-import time
+from optparse import OptionParser
 
-path = r'C:\pyproj\knowledge\knowledge\os\files\a.zip'
-respath = r"C:\pyproj\knowledge\knowledge\os"
+path = r'C:\Python\repo\knowledge\os\files\a\a.zip'
+respath = r"C:\Python\repo\knowledge\os"
 mass = []
 
 def extract_and_explore_archives(archive_path, depth=0):
@@ -41,5 +41,22 @@ def write_csv(directory,dict):
     return 0
 
 
-extract_and_explore_archives(path)
-write_csv(respath,mass)
+def makeFile(options = None): 
+    if options:
+        try:
+            extract_and_explore_archives(options.zippath, depth=0)
+            write_csv(options.resultpath,mass)
+        except:
+            print("Troubles")
+    else:
+        extract_and_explore_archives(path)
+        write_csv(respath,mass)
+
+if True:
+    parser = OptionParser()
+    parser.add_option('--zp','--zippath',dest = 'zippath',
+                      help='path to zipfile, where program should work')
+    parser.add_option('--rp','--resultpath',dest = 'resultpath',
+                      help='path were result .csv should be')
+    (options,args) = parser.parse_args()
+    makeFile(options)
