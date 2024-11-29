@@ -48,6 +48,8 @@ def makeFile(options = None):
             write_csv(options.resultpath,mass)
         except:
             print("Troubles")
+            extract_and_explore_archives(path)
+            write_csv(respath,mass)
     else:
         extract_and_explore_archives(path)
         write_csv(respath,mass)
