@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import ttk
 from tkinter import filedialog as fd
 from files import archives_e, write_csv 
 
@@ -19,7 +18,7 @@ def parse():
 
 root = tk.Tk()
 root.title("Archive Crawler")
-root.geometry("300x200") 
+root.geometry("400x200") 
 
 archiveframe = tk.Frame(master=root, borderwidth=1, padx=5, pady=5)
 archivetitle = tk.Label(master=archiveframe, text="Путь к архиву:")
