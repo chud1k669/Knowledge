@@ -31,8 +31,8 @@ def archives_e(path = zipfile.ZipFile, depth=0):
     except zipfile.BadZipFile:
         print(f"{indent}Ошибка: Не удалось открыть архив {path}. Возможно, он повреждён.")
 
-def write_csv():
-    with open('result.csv', 'w', newline='') as csvfile:
+def write_csv(respath):
+    with open(respath+'/result.csv', 'w', newline='') as csvfile:
         spamwriter = csv.writer(csvfile, quoting=1)
         for i,j in mass:
             j = datetime(*j[:6])
