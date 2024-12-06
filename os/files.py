@@ -4,16 +4,16 @@ from pathlib import Path
 import csv
 from optparse import OptionParser
 
-path = r'C:\Python\repo\knowledge\os\files\a\a.zip'
-respath = r"C:\Python\repo\knowledge\os"
+zippath = r'C:\pyproj\knowledge\knowledge\os\files\a\a.zip'
+respath = r"C:\pyproj\knowledge\knowledge\os"
 mass = []
 
-def extract_and_explore_archives(archive_path, depth=0):
+def archives_e(path = zipfile.ZipFile, depth=0):
     indent = '  ' * depth
     global mass
 
     try:
-        with zipfile.ZipFile(archive_path) as zf:
+        with zipfile.ZipFile(path) as zf:
             for info in zf.infolist():
                 filename = info.filename
                 if not filename.endswith(".zip"):
@@ -26,12 +26,12 @@ def extract_and_explore_archives(archive_path, depth=0):
                 if not info.is_dir():
                     if filename.endswith('.zip'):
                         extracted_file = zf.extract(filename)
-                        extract_and_explore_archives(Path(extracted_file), depth + 1)
+                        archives_e(Path(extracted_file), depth + 1)
                         Path(extracted_file).unlink()
     except zipfile.BadZipFile:
-        print(f"{indent}Ошибка: Не удалось открыть архив {archive_path}. Возможно, он повреждён.")
+        print(f"{indent}Ошибка: Не удалось открыть архив {path}. Возможно, он повреждён.")
 
-def write_csv(directory,dict):
+def write_csv():
     with open('result.csv', 'w', newline='') as csvfile:
         spamwriter = csv.writer(csvfile, quoting=1)
         for i,j in mass:
@@ -39,26 +39,3 @@ def write_csv(directory,dict):
             spamwriter.writerow([i]+[j])
     print("Данные успешно выведены")
     return 0
-
-
-def makeFile(options = None): 
-    if options:
-        try:
-            extract_and_explore_archives(options.zippath, depth=0)
-            write_csv(options.resultpath,mass)
-        except:
-            print("Troubles")
-            extract_and_explore_archives(path)
-            write_csv(respath,mass)
-    else:
-        extract_and_explore_archives(path)
-        write_csv(respath,mass)
-
-if True:
-    parser = OptionParser()
-    parser.add_option('--zp','--zippath',dest = 'zippath',
-                      help='path to zipfile, where program should work')
-    parser.add_option('--rp','--resultpath',dest = 'resultpath',
-                      help='path were result .csv should be')
-    (options,args) = parser.parse_args()
-    makeFile(options)
